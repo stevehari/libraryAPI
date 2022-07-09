@@ -39,7 +39,7 @@ public class utils {
 					
 					.addFilter(RequestLoggingFilter.logRequestTo(log))
 					
-					.addFilter(ResponseLoggingFilter.logResponseTo(log))
+					.addFilter(ResponseLoggingFilter.logResponseTo(log ))
 					
 					.build();
 			
