@@ -11,13 +11,13 @@ Cookies:		<none>
 Multiparts:		<none>
 Body:
 {
-    "name": "JANA",
-    "isbn": "ACB",
-    "aisle": "2512",
-    "author": "steveHari"
+    "author": "steveHari",
+    "isbn": "ACD",
+    "name": "toronto",
+    "aisle": "2511"
 }
 HTTP/1.1 200 OK
-Date: Sat, 09 Jul 2022 15:41:09 GMT
+Date: Sun, 10 Jul 2022 11:10:16 GMT
 Server: Apache
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Methods: POST
@@ -30,5 +30,35 @@ Content-Type: application/json;charset=UTF-8
 
 {
     "Msg": "successfully added",
-    "ID": "ACB2512"
+    "ID": "ACD2511"
+}
+Request method:	POST
+Request URI:	http://216.10.245.166/Library/DeleteBook.php
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=*/*
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:
+{
+    "ID": "ACD2511"
+}
+HTTP/1.1 200 OK
+Date: Sun, 10 Jul 2022 11:10:17 GMT
+Server: Apache
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: POST
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With
+Keep-Alive: timeout=5, max=100
+Connection: Keep-Alive
+Transfer-Encoding: chunked
+Content-Type: application/json;charset=UTF-8
+
+{
+    "msg": "book is successfully deleted"
 }

@@ -3,15 +3,16 @@ package stepDefinitions;
 
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import junit.framework.Assert;
+
 import resources.LibrarySource;
 import resources.bodyData;
 import resources.utils;
 
 import static io.restassured.RestAssured.*;
 import static org.junit.Assert.assertEquals;
-import java.util.ArrayList;
+
 import java.io.IOException;
+
 
 import org.junit.runner.RunWith;
 
@@ -29,16 +30,23 @@ public class Library extends utils {
 	
 	RequestSpecification RES1;
 	Response RES2;
+
+	static String Book_ID;
+	
+
 	
 	@Given("add a book by giving payload with details name, isbn, aisle and author")
 	public void add_a_book_by_giving_payload_with_details_name_isbn_aisle_and_author() throws IOException {
 		
-		ArrayList<String> d = getData("Library","1");
+	
 		
-		RES1= given().spec(requestSpec()).body(body.getAddBookBody(d.get(1),d.get(2),d.get(3),d.get(4)));
+		RES1= given().spec(requestSpec()).body(body.getAddBookBody());
 	}
+	
 	@When("user calls {string} with {string} HTTP request")
-	public void user_calls_with_http_request(String Path, String method) {
+	
+	public void user_calls_with_http_request(String Path,String method) 
+	{
 		
 		LibrarySource path= LibrarySource.valueOf(Path);
 		
@@ -47,6 +55,7 @@ public class Library extends utils {
 			RES2=RES1.when().post(path.resourceReturn()).then().log().all().extract().response();	
 		}
 	}
+	
 	@Then("the API call is success with status code {int}")
 	public void the_api_call_is_success_with_status_code(Integer int1) {
 		
@@ -57,11 +66,31 @@ public class Library extends utils {
 	}
 	@Then("{string} in response body is {string}")
 	public void in_response_body_is(String MSG, String Status) {
-	   
+		
 		String Actual_Value=getJsonPath(RES2,MSG);
 		
-	Assert.assertEquals(Actual_Value, Status);
+		Book_ID=getJsonPath(RES2,"ID");
+		
+		System.out.println(Book_ID);
+		
+		if(Status.equalsIgnoreCase("successfully added"))
+		{
+			assertEquals(Status, Actual_Value);
+		}
+		
+		else if(Status.equalsIgnoreCase("book is successfully deleted"))
+		{
+			assertEquals(Status, Actual_Value);
+			
+		}
+	   
+	}
 	
+	@Given("Using the book ID delete the book")
+	public void using_the_book_id_delete_the_book() throws IOException {
+		
+		RES1= given().spec(requestSpec()).body(body.getDeleteBookBody(Book_ID));		
+
 	}
 
 
